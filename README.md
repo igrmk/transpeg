@@ -9,7 +9,7 @@ This simple tool does exactly this.
 Usage
 =====
 
-transpeg input.png output.svg
+    transpeg input.png output.svg
 
 Installation
 ============

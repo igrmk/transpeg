@@ -10,7 +10,7 @@ import svgwrite
 from PIL import Image
 from PIL import UnidentifiedImageError
 
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 
 
 def eprint(*args, **kwargs):
