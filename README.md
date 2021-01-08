@@ -1,4 +1,4 @@
-<img src="example/transpeg.svg" width="196">
+<img src="https://raw.githubusercontent.com/igrmk/transpeg/main/example/transpeg.svg" width="196">
 
 Wanna transparent JPEG?
 Unfortunately there is no such thing except mostly unsupported JPEG 2000.
