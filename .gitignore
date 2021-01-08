@@ -1,0 +1,10 @@
+*.png
+*.svg
+*.jpg
+__pycache__
+transpeg.egg-info
+dist
+build
+deploy
+deploy-test
+build-egg
