@@ -23,18 +23,14 @@ def to_base64(img, **params):
     return base64.b64encode(stream.getvalue()).decode('ascii')
 
 
-def png_mask(img, args):
-    mask_img = Image.new("L", img.size)
-    mask_img.paste(img.convert('RGBA').split()[-1])
+def png_mask(mask_img, args):
     if args.mask_colors != 0:
         colors = args.mask_colors
         mask_img = mask_img.convert('P', palette=Image.ADAPTIVE, colors=colors)
     return to_base64(mask_img, format='png', compress_level=9)
 
 
-def jpeg_mask(img, args):
-    mask_img = Image.new("L", img.size)
-    mask_img.paste(img.convert('RGBA').split()[-1])
+def jpeg_mask(mask_img, args):
     quality = args.mask_quality
     return to_base64(mask_img, format='jpeg', optimize=True, quality=quality)
 
@@ -43,7 +39,9 @@ def to_jpeg_and_mask(img, args):
     rgb = img.convert('RGB')
     quality = args.mask_quality
     jpeg_str = to_base64(rgb, format='jpeg', optimize=True, quality=quality)
-    return jpeg_str, mask_proc[args.mask_type](img, args)
+    mask_img = Image.new("L", img.size)
+    mask_img.paste(img.convert('RGBA').split()[-1])
+    return jpeg_str, mask_proc[args.mask_type](mask_img, args)
 
 
 mask_proc = {'png': png_mask, 'jpeg': jpeg_mask}
