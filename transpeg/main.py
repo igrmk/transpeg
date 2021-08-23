@@ -10,7 +10,7 @@ import svgwrite
 from PIL import Image
 from PIL import UnidentifiedImageError
 
-__version__ = '1.0.2'
+__version__ = '1.0.3'
 
 
 def eprint(*args, **kwargs):
@@ -37,7 +37,7 @@ def jpeg_mask(mask_img, args):
 
 def to_jpeg_and_mask(img, args):
     rgb = img.convert('RGB')
-    quality = args.mask_quality
+    quality = args.quality
     jpeg_str = to_base64(rgb, format='jpeg', optimize=True, quality=quality)
     mask_img = Image.new("L", img.size)
     mask_img.paste(img.convert('RGBA').split()[-1])
