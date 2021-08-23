@@ -5,12 +5,14 @@ import sys
 import base64
 import os
 import argparse
+import codecs
+import gzip
 
 import svgwrite
 from PIL import Image
 from PIL import UnidentifiedImageError
 
-__version__ = '1.0.3'
+__version__ = '1.1.0'
 
 
 def eprint(*args, **kwargs):
@@ -65,7 +67,7 @@ def main():
         sys.exit(1)
 
     jpeg_str, mask_str = to_jpeg_and_mask(img, args)
-    dwg = svgwrite.Drawing(args.output, size=img.size)
+    dwg = svgwrite.Drawing(size=img.size)
     mask = dwg.defs.add(dwg.mask(id='mask'))
 
     href = f'data:image/{args.mask_type};base64,{mask_str}'
@@ -74,8 +76,17 @@ def main():
     href = f'data:image/jpeg;base64,{jpeg_str}'
     dwg.add(dwg.image(href=href, size=img.size, mask='url(#mask)'))
 
+    stream = io.BytesIO()
+    write_params = {} if args.svgz else {'pretty': True, 'indent': 4}
+    dwg.write(codecs.getwriter('utf-8')(stream), **write_params)
+    buf = stream.getbuffer()
+
+    if args.svgz:
+        buf = gzip.compress(buf)
+
     try:
-        dwg.save(pretty=True, indent=4)
+        with open(args.output, 'wb') as f:
+            f.write(buf)
     except OSError:
         eprint(f"Could not write the image: '{args.output}'")
         sys.exit(1)
@@ -139,6 +150,12 @@ def args_parser():
         help='JPEG mask output quality\napplicable only for JPEG masks',
         default=75,
         type=int)
+    parser.add_argument(
+        '-z',
+        '--svgz',
+        dest='svgz',
+        action='store_true',
+        help='compress with gzip')
     parser.add_argument(
         '-v',
         '--version',
