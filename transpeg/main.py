@@ -12,7 +12,7 @@ import svgwrite
 from PIL import Image
 from PIL import UnidentifiedImageError
 
-__version__ = '1.1.0'
+__version__ = '1.1.1'
 
 
 def eprint(*args, **kwargs):
@@ -82,7 +82,7 @@ def main():
     buf = stream.getbuffer()
 
     if args.svgz:
-        buf = gzip.compress(buf)
+        buf = gzip.compress(buf, mtime=0)
 
     try:
         with open(args.output, 'wb') as f:
