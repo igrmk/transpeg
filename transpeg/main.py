@@ -12,7 +12,7 @@ import svgwrite
 from PIL import Image
 from PIL import UnidentifiedImageError
 
-__version__ = '1.1.1'
+__version__ = '1.1.2'
 
 
 def eprint(*args, **kwargs):
@@ -89,7 +89,7 @@ def main():
             f.write(buf)
     except OSError:
         eprint(f"Could not write the image: '{args.output}'")
-        sys.exit(1)
+        return 1
 
     eprint(f'JPEG size: {len(jpeg_str)}')
     eprint(f'Mask size: {len(mask_str)}')
