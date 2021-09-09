@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 import io
 import sys
 import base64
@@ -7,12 +5,10 @@ import os
 import argparse
 import codecs
 import gzip
-
 import svgwrite
 from PIL import Image
 from PIL import UnidentifiedImageError
-
-__version__ = '1.1.2'
+from .__version__ import __version__
 
 
 def eprint(*args, **kwargs):
@@ -105,6 +101,7 @@ def args_parser():
             max_help_position=30,
             width=80)
     parser = argparse.ArgumentParser(
+        prog=__package__,
         formatter_class=formatter_class,
         description=(
             'Convert a transparent image into SVG.\n'
@@ -162,7 +159,3 @@ def args_parser():
         action='version',
         version=f'%(prog)s {__version__}')
     return parser
-
-
-if __name__ == "__main__":
-    main()
