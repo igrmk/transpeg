@@ -1,3 +1,8 @@
+This repository has been archived.
+Today, modern browsers provide excellent support for both WebP and AVIF formats,
+which offer significantly better compression rates.
+You no longer need to rely on complicated workarounds to reduce image sizes and make them manageable on your website.
+
 <img src="https://raw.githubusercontent.com/igrmk/transpeg/main/example/transpeg.svg" width="196">
 
 <!-- cut -->
